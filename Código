@@ -1,1 +1,135 @@
+# ==========================================
+# Sistema de Controle de Estoque
+# Desenvolvido para terminal (CLI)
+# ==========================================
 
+def exibir_menu():
+    """Exibe as opções do sistema para o usuário."""
+    print("\n" + "=" * 45)
+    print("      SISTEMA DE CONTROLE DE ESTOQUE")
+    print("=" * 45)
+    print("[1] - Cadastrar produto")
+    print("[2] - Atualizar quantidade")
+    print("[3] - Remover produto")
+    print("[4] - Listar todos os produtos do estoque")
+    print("[5] - Encerrar o sistema")
+    print("=" * 45)
+
+def cadastrar_produto(estoque):
+    """Cadastra um novo produto no dicionário de estoque."""
+    print("\n--- Cadastro de Produto ---")
+    nome = input("Digite o nome do produto: ").strip().lower()
+    
+    # Validação: verifica se o produto já existe
+    if nome in estoque:
+        print("Aviso: O produto '{}' já está cadastrado no sistema.".format(nome.title()))
+        return
+
+    # Tratamento de erro para garantir que a entrada seja numérica
+    try:
+        quantidade = int(input("Digite a quantidade inicial: "))
+        preco = float(input("Digite o preço unitário (R$): "))
+        
+        # Impede cadastro de valores negativos
+        if quantidade < 0 or preco < 0:
+            print("Erro: A quantidade e o preço devem ser valores positivos.")
+            return
+
+        # Armazenando no formato exigido
+        estoque[nome] = {
+            "quantidade": quantidade,
+            "preco": preco
+        }
+        print("Sucesso: Produto '{}' cadastrado com sucesso!".format(nome.title()))
+        
+    except ValueError:
+        print("Erro: Entrada inválida. Use apenas números para quantidade e preço.")
+
+def atualizar_quantidade(estoque):
+    """Atualiza a quantidade de um produto existente."""
+    print("\n--- Atualizar Quantidade ---")
+    nome = input("Digite o nome do produto: ").strip().lower()
+
+    # Validação: verifica se o produto existe antes de tentar atualizar
+    if nome not in estoque:
+        print("Erro: O produto '{}' não foi encontrado no estoque.".format(nome.title()))
+        return
+
+    try:
+        nova_quantidade = int(input("Digite a nova quantidade em estoque: "))
+        
+        if nova_quantidade < 0:
+            print("Erro: A quantidade em estoque não pode ser negativa.")
+            return
+
+        # Atualizando a quantidade no dicionário interno
+        estoque[nome]["quantidade"] = nova_quantidade
+        print("Sucesso: A quantidade de '{}' foi atualizada para {}.".format(nome.title(), nova_quantidade))
+        
+    except ValueError:
+        print("Erro: Entrada inválida. A quantidade deve ser um número inteiro.")
+
+def remover_produto(estoque):
+    """Remove um produto do estoque permanentemente."""
+    print("\n--- Remover Produto ---")
+    nome = input("Digite o nome do produto a ser removido: ").strip().lower()
+
+    # Tenta remover apenas se o produto existir
+    if nome in estoque:
+        del estoque[nome]
+        print("Sucesso: Produto '{}' removido do estoque!".format(nome.title()))
+    else:
+        print("Erro: O produto '{}' não foi encontrado.".format(nome.title()))
+
+def listar_estoque(estoque):
+    """Exibe todos os produtos cadastrados de forma tabular."""
+    print("\n--- Lista de Produtos ---")
+    
+    # Verifica se o dicionário está vazio
+    if not estoque:
+        print("O estoque está vazio no momento.")
+        return
+
+    # Cabeçalho da tabela com formatação de espaços via .format()
+    print("-" * 45)
+    print("{:<20} | {:<10} | {:<10}".format("PRODUTO", "QTD", "PREÇO"))
+    print("-" * 45)
+    
+    # Itera sobre o dicionário para exibir os dados
+    for nome, dados in estoque.items():
+        quantidade = dados["quantidade"]
+        preco = dados["preco"]
+        # .title() deixa a primeira letra maiúscula para melhor exibição
+        # {:.2f} formata o float para exibir 2 casas decimais
+        print("{:<20} | {:<10} | R$ {:.2f}".format(nome.title(), quantidade, preco))
+        
+    print("-" * 45)
+
+def main():
+    """Função principal que controla o fluxo do programa."""
+    # Inicialização do dicionário vazio que guardará os produtos
+    estoque = {}
+    
+    # Loop infinito para manter o sistema rodando até que o usuário decida sair
+    while True:
+        exibir_menu()
+        opcao = input("Escolha uma opção (1-5): ").strip()
+        
+        # Controle de fluxo baseado na escolha do usuário
+        if opcao == "1":
+            cadastrar_produto(estoque)
+        elif opcao == "2":
+            atualizar_quantidade(estoque)
+        elif opcao == "3":
+            remover_produto(estoque)
+        elif opcao == "4":
+            listar_estoque(estoque)
+        elif opcao == "5":
+            print("\nEncerrando o sistema. Até logo!")
+            break  # Interrompe o loop while
+        else:
+            print("\nErro: Opção inválida. Por favor, escolha um número de 1 a 5.")
+
+# Boa prática: Executa a main() apenas se o arquivo for executado diretamente
+if __name__ == "__main__":
+    main()
