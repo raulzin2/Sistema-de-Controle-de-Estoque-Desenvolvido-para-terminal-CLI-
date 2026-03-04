@@ -1,0 +1,35 @@
+# Sistema de Controle de Estoque (CLI)
+
+Um sistema de gerenciamento de estoque simples, robusto e executado via terminal (Command Line Interface). Este projeto foi desenvolvido em Python com foco em código limpo, modularização e boas práticas de programação.
+
+## Objetivo do Projeto
+
+O objetivo deste projeto é demonstrar o domínio de fundamentos essenciais da linguagem Python, como manipulação de estruturas de dados (dicionários aninhados), controle de fluxo (loops e condicionais), modularização através de funções e tratamento básico de erros (exceções).
+
+## Funcionalidades
+
+O sistema conta com um menu interativo que permite ao usuário:
+
+- **[1] Cadastrar produto:** Adiciona um novo item ao estoque com quantidade e preço (impede duplicatas e valores negativos).
+- **[2] Atualizar quantidade:** Altera a quantidade de um produto existente, validando se o item realmente está no sistema.
+- **[3] Remover produto:** Exclui permanentemente um item do estoque.
+- **[4] Listar estoque:** Exibe todos os itens cadastrados em uma tabela formatada de fácil leitura.
+- **[5] Encerrar:** Finaliza a execução do programa de forma segura.
+
+## Tecnologias e Conceitos Utilizados
+
+- **Python 3.x**
+- **Dicionários Aninhados:** Utilizados como um banco de dados em memória para armazenar os produtos estruturados da seguinte forma: `{"nome": {"quantidade": int, "preco": float}}`.
+- **Funções:** Código altamente modular, com responsabilidades únicas para cada ação do sistema (CRUD).
+- **Tratamento de Exceções (`try / except`):** Previne que o sistema quebre caso o usuário digite texto onde deveria digitar números.
+- **Formatação de Strings (`.format()`):** Utilizado para construir a interface de texto e a tabela de exibição de dados.
+
+## Como Executar o Projeto?
+
+### Pré-requisitos
+Você precisa ter o [Python](https://www.python.org/downloads/) instalado na sua máquina (versão 3.6 ou superior).
+
+### Passo a passo
+1. Faça o clone deste repositório ou baixe o arquivo `.py`.
+2. Abra o terminal na pasta onde o arquivo está salvo.
+3. Execute o seguinte comando:
