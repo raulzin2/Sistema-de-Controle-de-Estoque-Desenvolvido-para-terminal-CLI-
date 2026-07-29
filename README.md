@@ -30,5 +30,7 @@ Estrutura do repositório
 │   └── index.html       # versão web (demo do portfólio)
 └── README.md
 ```
+LINK : file:///C:/Users/Raul%20Teotônio/Downloads/estoque-controle/estoque-controle/web/index.html
+
 Pré-requisitos (versão CLI)
 Você precisa ter o Python instalado na sua máquina (versão 3.6 ou superior).
